@@ -1,6 +1,5 @@
 from django.urls import path
 from rest_framework_simplejwt.views import TokenRefreshView, TokenObtainPairView
-
 from estore_api.users.api.views import RegisterView, ChangePasswordView, UpdateProfileView, LogoutView, \
     LogoutAllView
 
