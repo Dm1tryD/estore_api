@@ -1,3 +1,6 @@
 from django.contrib import admin
 
-# Register your models here.
+from estore_api.products.models import Notebook, Phone
+
+admin.site.register(Notebook)
+admin.site.register(Phone)
