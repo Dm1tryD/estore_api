@@ -1,5 +1,5 @@
 from django.urls import reverse
-from rest_framework.test import APITestCase, force_authenticate, APIRequestFactory, APIClient
+from rest_framework.test import APITestCase, APIClient
 
 from ..models import User
 
