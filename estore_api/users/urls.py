@@ -4,11 +4,11 @@ from estore_api.users.api.views import RegisterView, ChangePasswordView, UpdateP
     LogoutAllView
 
 urlpatterns = [
-    path('login/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
-    path('login/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-    path('register/', RegisterView.as_view(), name='auth_register'),
-    path('change-password/<int:pk>/', ChangePasswordView.as_view(), name='auth_change_password'),
-    path('update-profile/<int:pk>/', UpdateProfileView.as_view(), name='auth_update_profile'),
-    path('logout/', LogoutView.as_view(), name='auth_logout'),
-    path('logout_all/', LogoutAllView.as_view(), name='auth_logout_all'),
+    path('login/', TokenObtainPairView.as_view(), name='token-obtain-pair'),
+    path('login/refresh/', TokenRefreshView.as_view(), name='token-refresh'),
+    path('register/', RegisterView.as_view(), name='user-register'),
+    path('change-password/<int:pk>/', ChangePasswordView.as_view(), name='user-change-password'),
+    path('update-profile/<int:pk>/', UpdateProfileView.as_view(), name='user-update-profile'),
+    path('logout/', LogoutView.as_view(), name='user-logout'),
+    path('logout_all/', LogoutAllView.as_view(), name='user-logout-all'),
 ]
