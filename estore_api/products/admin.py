@@ -17,4 +17,3 @@ admin.site.register(models.DisplayResolution)
 admin.site.register(models.Display)
 admin.site.register(models.Notebook)
 admin.site.register(models.Phone)
-
