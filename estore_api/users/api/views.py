@@ -17,7 +17,7 @@ from rest_framework_simplejwt.tokens import RefreshToken
 
 from .serializers import RegisterSerializer, ChangePasswordSerializer, UpdateUserSerializer, \
     ResetPasswordEmailSerializer, SetNewPasswordSerializer
-from ..utils import Util
+from ..task import send_email
 
 User = get_user_model()
 
@@ -90,11 +90,12 @@ class RequestPasswordResetEmail(generics.GenericAPIView):
 
             redirect_url = request.data.get('redirect_url', '')
             absurl = 'http://'+current_site + relativeLink
+
             email_body = 'Hello, \n Use link below to reset your password  \n' + \
                 absurl+"?redirect_url="+redirect_url
             data = {'email_body': email_body, 'to_email': user.email,
                     'email_subject': 'Reset your passsword'}
-            Util.send_email(data)
+            send_email.delay(data)
             return Response({'success': 'We have sent you a link to reset your password'}, status=status.HTTP_200_OK)
         return Response({'error': 'No user with this email address has been found.'}, status=status.HTTP_200_OK)
 
