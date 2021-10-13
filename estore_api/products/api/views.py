@@ -7,7 +7,7 @@ from ..models import Notebook, Phone
 from .serializers import NotebookSerializer, PhoneSerializer
 
 
-class MixinViewSet(viewsets.ModelViewSet):
+class MixinTechModelViewSet(viewsets.ModelViewSet):
     permission_classes = (permissions.IsAuthenticatedOrReadOnly, permissions.DjangoModelPermissionsOrAnonReadOnly,)
     filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
     filter_fields = ['category', 'available', 'price', 'cpu', 'gpu']
@@ -15,11 +15,11 @@ class MixinViewSet(viewsets.ModelViewSet):
     ordering_fields = ['priority']
 
 
-class PhoneViewSet(MixinViewSet):
+class PhoneViewSet(MixinTechModelViewSet):
     queryset = Phone.objects.all()
     serializer_class = PhoneSerializer
 
 
-class NotebookViewSet(MixinViewSet):
+class NotebookViewSet(MixinTechModelViewSet):
     queryset = Notebook.objects.all()
     serializer_class = NotebookSerializer
