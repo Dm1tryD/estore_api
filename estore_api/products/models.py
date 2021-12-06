@@ -164,15 +164,23 @@ class ElectronicTech(Product):
         abstract = True
 
 
-class Notebook(ElectronicTech):
+class ProductTypeLaptop(ElectronicTech):
+
+    class Meta:
+        verbose_name = 'Laptop'
+        verbose_name_plural = 'Laptops'
 
     def __str__(self):
         return self.name
 
 
-class Phone(ElectronicTech):
+class ProductTypePhone(ElectronicTech):
     sim_amount = models.PositiveIntegerField()
     main_camera = models.CharField(max_length=50, blank=True)
+
+    class Meta:
+        verbose_name = 'Phone'
+        verbose_name_plural = 'Phones'
 
     def __str__(self):
         return self.name

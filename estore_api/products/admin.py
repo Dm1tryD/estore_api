@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from estore_api.products import models
+from ..products import models
 
 admin.site.register(models.Image)
 admin.site.register(models.Category)
@@ -15,5 +15,5 @@ admin.site.register(models.Storage)
 admin.site.register(models.DisplayType)
 admin.site.register(models.DisplayResolution)
 admin.site.register(models.Display)
-admin.site.register(models.Notebook)
-admin.site.register(models.Phone)
+admin.site.register(models.ProductTypeLaptop)
+admin.site.register(models.ProductTypePhone)

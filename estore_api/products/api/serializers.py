@@ -79,13 +79,14 @@ class DisplayResolutionSerializer(serializers.ModelSerializer):
 
 class DisplaySerializer(serializers.ModelSerializer):
     display_type = DisplayTypeSerializer()
-    display_resolution= DisplayResolutionSerializer()
+    display_resolution = DisplayResolutionSerializer()
+
     class Meta:
         model = models.Display
         fields = '__all__'
 
 
-class NotebookSerializer(serializers.ModelSerializer):
+class LaptopSerializer(serializers.ModelSerializer):
     os = OsSerializer()
     cpu = CPUSerializer()
     gpu = GPUSerializer()
@@ -97,7 +98,7 @@ class NotebookSerializer(serializers.ModelSerializer):
     brand = BrandSerializer()
 
     class Meta:
-        model = models.Notebook
+        model = models.ProductTypeLaptop
         fields = '__all__'
 
 
@@ -114,5 +115,5 @@ class PhoneSerializer(serializers.ModelSerializer):
     image = ImageSerializer()
 
     class Meta:
-        model = models.Phone
+        model = models.ProductTypePhone
         fields = '__all__'
