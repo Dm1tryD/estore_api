@@ -3,8 +3,8 @@ from rest_framework import viewsets
 from rest_framework import permissions
 from rest_framework.filters import SearchFilter, OrderingFilter
 
-from ..models import Notebook, Phone
-from .serializers import NotebookSerializer, PhoneSerializer
+from ..models import ProductTypeLaptop, ProductTypePhone
+from .serializers import LaptopSerializer, PhoneSerializer
 
 
 class MixinTechModelViewSet(viewsets.ModelViewSet):
@@ -16,10 +16,10 @@ class MixinTechModelViewSet(viewsets.ModelViewSet):
 
 
 class PhoneViewSet(MixinTechModelViewSet):
-    queryset = Phone.objects.all()
+    queryset = ProductTypePhone.objects.all()
     serializer_class = PhoneSerializer
 
 
-class NotebookViewSet(MixinTechModelViewSet):
-    queryset = Notebook.objects.all()
-    serializer_class = NotebookSerializer
+class LaptopViewSet(MixinTechModelViewSet):
+    queryset = ProductTypeLaptop.objects.all()
+    serializer_class = LaptopSerializer

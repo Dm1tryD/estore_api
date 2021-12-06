@@ -176,6 +176,9 @@ typings/
 .idea/**/tasks.xml
 .idea/dictionaries
 
+# API
+.idea/estore_api.iml
+
 # Sensitive or high-churn files:
 .idea/**/dataSources/
 .idea/**/dataSources.ids
