@@ -9,6 +9,9 @@ START_WORD = 'producttype'
 
 class Order(models.Model):
     user = models.ForeignKey(User, blank=True, null=True, on_delete=models.DO_NOTHING)
+    name = models.CharField(max_length=24)
+    surname = models.CharField(max_length=24)
+    email = models.EmailField()
     address = models.CharField(max_length=250)
     postal_code = models.CharField(max_length=20)
     city = models.CharField(max_length=100)
