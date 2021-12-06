@@ -1,8 +1,10 @@
 from django.contrib.auth import get_user_model
 from django.db import models
 from django.contrib.contenttypes.fields import GenericForeignKey
+from django.contrib.contenttypes.models import ContentType
 
 User = get_user_model()
+START_WORD = 'producttype'
 
 
 class Order(models.Model):
@@ -27,7 +29,11 @@ class Order(models.Model):
 
 class OrderItem(models.Model):
     order = models.ForeignKey(Order, related_name='items', on_delete=models.CASCADE)
-    product = GenericForeignKey('content_type', 'object_id')
+    item_type = models.ForeignKey(
+        ContentType, on_delete=models.CASCADE, limit_choices_to={"model__istartswith": START_WORD}
+    )
+    item_id = models.PositiveIntegerField()
+    product = GenericForeignKey('item_type', 'item_id')
     quantity = models.PositiveIntegerField(default=1)
 
     def __str__(self):
