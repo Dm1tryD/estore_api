@@ -39,6 +39,7 @@ class Cart:
             self.cart[self.unique_product_identifier]["quantity"] = quantity
         else:
             self.cart[self.unique_product_identifier] = {
+                "name": str(self.product.name),
                 "product_id": self.product_id,
                 "product_type": self.product_type_id,
                 "price_with_discount": str(self.product.get_price_with_discount()),
