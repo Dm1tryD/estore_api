@@ -30,7 +30,7 @@ class CartItemDetail(APIView):
         """
         cart = Cart(request, product_type_id, product_id)
         cart.delete()
-        return Response('Delete success')
+        return Response({'success': 'Delete success'})
 
 
 class ListCartItems(ListCreateAPIView):
