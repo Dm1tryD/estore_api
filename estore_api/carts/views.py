@@ -18,6 +18,7 @@ class CartItemDetail(APIView):
         quantity = request.data['quantity']
         cart = Cart(request, product_type_id, product_id)
         data = {
+            "product_type_id": product_type_id,
             "product_id": product_id,
             "quantity": quantity,
         }
