@@ -27,11 +27,11 @@ class Order(models.Model):
         return f'Order {self.id}'
 
     def get_total_cost(self):
-        return sum(item.get_cost() for item in self.items.all())
+        return sum(item.get_cost() for item in self.order_items.all())
 
 
 class OrderItem(models.Model):
-    order = models.ForeignKey(Order, related_name='items', on_delete=models.CASCADE)
+    order = models.ForeignKey(Order, related_name='order_items', on_delete=models.CASCADE)
     item_type = models.ForeignKey(
         ContentType, on_delete=models.CASCADE, limit_choices_to={"model__istartswith": settings.MODEL_START_WORD}
     )
