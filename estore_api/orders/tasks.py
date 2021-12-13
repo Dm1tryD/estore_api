@@ -6,12 +6,14 @@ from config.celery_app import app
 
 
 @app.task
-def send_order_email(instance):
+def send_order_email(order):
     subject = 'Order'
-    html_message = render_to_string('templates/email_template.html', {'instance': instance})
+    html_message = render_to_string(
+        'email_template.html', {'order': order, 'order_items': order.order_items.all()}
+    )
     plain_message = strip_tags(html_message)
     sender = 'eStore@estore.com'
-    receiver = instance.email
+    receiver = [order.email, ]
     send_mail(
         subject,
         plain_message,
