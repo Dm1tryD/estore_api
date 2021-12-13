@@ -11,7 +11,8 @@ urlpatterns += [
     # API
     path("api/users/", include(("estore_api.users.urls", "users"), namespace="users")),
     path("api/products/", include(("estore_api.products.urls", "products"), namespace="products")),
-    path("api/carts/", include(("estore_api.carts.urls", "carts"), namespace="carts")),
+    path("api/orders/", include(("estore_api.orders.urls", "orders"), namespace="orders")),
+    path("api/cart/", include(("estore_api.carts.urls", "carts"), namespace="cart")),
 ]
 
 if settings.DEBUG:
