@@ -12,14 +12,12 @@ class OrderItemSerializer(serializers.ModelSerializer):
 
 
 class OrderSerializer(serializers.ModelSerializer):
+    order_items = OrderItemSerializer(read_only=True, many=True)
+    total_cost = serializers.FloatField(source='get_total_cost', read_only=True)
 
     class Meta:
-        fields = '__all__'
+        fields = (
+            'id', 'name', 'surname', 'email', 'address', 'postal_code',
+            'city', 'created', 'order_items', 'total_cost'
+        )
         model = Order
-
-
-class OrderItemSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        fields = '__all__'
-        model = OrderItem
