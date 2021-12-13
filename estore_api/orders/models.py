@@ -43,7 +43,10 @@ class OrderItem(models.Model):
         return '{}'.format(self.product)
 
     def get_unit_price(self):
-        return self.product.price
+        return self.product.get_price_with_discount
 
     def get_cost(self):
-        return self.product.price * self.quantity
+        return self.product.get_price_with_discount * self.quantity
+
+    def get_product_name(self):
+        return self.product.name
