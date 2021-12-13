@@ -85,6 +85,7 @@ class Product(BaseCharacters):
     class Meta:
         abstract = True
 
+    @property
     def get_price_with_discount(self):
         if self.discount:
             return self.price-((self.price/100)*self.discount)
