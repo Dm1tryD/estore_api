@@ -15,12 +15,8 @@ class CartItemDetail(APIView):
         """
         quantity = request.data['quantity']
         cart = Cart(request, product_type_id, product_id)
-        unique_product_identifier = str(product_type_id) + '_' + str(product_id)
-        price = self.request.session[settings.CART_SESSION_ID][unique_product_identifier]['price']
         data = {
             "product_id": product_id,
-            "product_type": product_type_id,
-            "price": price,
             "quantity": quantity,
         }
         cart.update(quantity)
