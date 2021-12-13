@@ -1,10 +1,10 @@
 from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework import viewsets
 from rest_framework import permissions
+from rest_framework import viewsets
 from rest_framework.filters import SearchFilter, OrderingFilter
 
-from ..models import ProductTypeLaptop, ProductTypePhone
 from .serializers import LaptopSerializer, PhoneSerializer
+from ..models import ProductTypeLaptop, ProductTypePhone
 
 
 class MixinTechModelViewSet(viewsets.ModelViewSet):

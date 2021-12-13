@@ -5,9 +5,9 @@ from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIV
 from rest_framework.permissions import IsAdminUser, AllowAny
 from rest_framework.response import Response
 
-from ..models import Order, OrderItem
-from .. import tasks
 from .serializers import OrderSerializer, OrderItemSerializer
+from .. import tasks
+from ..models import Order, OrderItem
 
 
 class OrderList(ListCreateAPIView):
