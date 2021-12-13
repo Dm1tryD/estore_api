@@ -294,6 +294,7 @@ REST_FRAMEWORK = {
 CORS_URLS_REGEX = r"^/api/.*$"
 # Your stuff...
 # ------------------------------------------------------------------------------
+MODEL_START_WORD = 'producttype'
 CART_SESSION_ID = 'cart'
 SIMPLE_JWT = {
     'REFRESH_TOKEN_LIFETIME': timedelta(days=15),

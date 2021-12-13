@@ -1,10 +1,10 @@
+from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.db import models
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 
 User = get_user_model()
-START_WORD = 'producttype'
 
 
 class Order(models.Model):
@@ -24,16 +24,16 @@ class Order(models.Model):
         verbose_name_plural = 'Orders'
 
     def __str__(self):
-        return f'Order {self.id}'
+        return f'Order {self.pk}'
 
     def get_total_cost(self):
-        return sum(item.get_cost() for item in self.items.all())
+        return sum(item.get_cost() for item in self.order_items.all())
 
 
 class OrderItem(models.Model):
-    order = models.ForeignKey(Order, related_name='items', on_delete=models.CASCADE)
+    order = models.ForeignKey(Order, related_name='order_items', on_delete=models.CASCADE)
     item_type = models.ForeignKey(
-        ContentType, on_delete=models.CASCADE, limit_choices_to={"model__istartswith": START_WORD}
+        ContentType, on_delete=models.CASCADE, limit_choices_to={"model__istartswith": settings.MODEL_START_WORD}
     )
     item_id = models.PositiveIntegerField()
     product = GenericForeignKey('item_type', 'item_id')
@@ -43,7 +43,10 @@ class OrderItem(models.Model):
         return '{}'.format(self.product)
 
     def get_unit_price(self):
-        return self.product.price
+        return self.product.get_price_with_discount
 
     def get_cost(self):
-        return self.product.price * self.quantity
+        return self.product.get_price_with_discount * self.quantity
+
+    def get_product_name(self):
+        return self.product.name
