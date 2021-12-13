@@ -1,9 +1,11 @@
 from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 from django.shortcuts import get_object_or_404
+from rest_framework.generics import ListCreateAPIView
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
+from .api.serializers import CartSerializer
 from .cart import Cart
 
 
@@ -31,9 +33,11 @@ class CartItemDetail(APIView):
         return Response('Delete success')
 
 
-class ListCartItems(APIView):
+class ListCartItems(ListCreateAPIView):
 
-    def get(self, request):
+    serializer_class = CartSerializer
+
+    def get(self, request, *args, **kwargs):
         """
         Get all the products in the basket of the current session
         """
@@ -41,26 +45,28 @@ class ListCartItems(APIView):
             cart = request.session[settings.CART_SESSION_ID]
             return Response(cart)
         except KeyError:
-            return Response('Cart is empty')
+            return Response('Card is not initialized')
 
-    def post(self, request):
+    def post(self, request, *args, **kwargs):
         """
         Add product to cart
         """
-        try:
-            product_type_id = request.data['product_type_id']
-            product_id = request.data['product_id']
-            quantity = request.data['quantity']
-        except KeyError as e:
-            return Response(f'Error argument {e} was not found.')
-        product = get_object_or_404(get_object_or_404(ContentType, pk=product_type_id).model_class(), pk=product_id)
-        if product:
-            data = {
-                "product_id": product_id,
-                "product_type": product_type_id,
-                "price": str(product.price),
-                "quantity": quantity,
-            }
-            cart = Cart(request, product_type_id, product_id, product)
-            cart.add(quantity)
-            return Response(data)
+        cart_serializer = CartSerializer(data=request.data)
+        if cart_serializer.is_valid():
+            product_type_id = cart_serializer.data['product_type_id']
+            product_id = cart_serializer.data['product_id']
+            quantity = cart_serializer.data['quantity']
+            product = get_object_or_404(get_object_or_404(ContentType, pk=product_type_id).model_class(), pk=product_id)
+            if product:
+                data = {
+                    "name": product.name,
+                    "product_type_id": product_type_id,
+                    "product_id": product_id,
+                    "price_with_discount": str(product.get_price_with_discount),
+                    "quantity": quantity,
+                }
+                cart = Cart(request, product_type_id, product_id, product)
+                cart.add(quantity)
+                return Response(data)
+            return Response({'error': 'Product doesn\'t exist'})
+        return Response(cart_serializer.errors)
